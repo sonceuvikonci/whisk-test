@@ -1,0 +1,14 @@
+{
+  "prod": {
+    "client": "http://whisk.com",
+    "admin": "",
+    "client_api": "https://api.whisk.com",
+    "admin_api": ""
+  },
+  "dev": {
+    "client": "",
+    "admin": "",
+    "client_api": "",
+    "admin_api": ""
+  }
+}
