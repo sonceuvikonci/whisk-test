@@ -3,10 +3,7 @@ package com.whisk.utils;
 import com.github.javafaker.Faker;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class DataGenerator {
 
@@ -23,12 +20,8 @@ public class DataGenerator {
     public static List<String> generateFoodList(int foodCount) {
         Reporter.log("Food list generating ...");
         Faker faker = new Faker();
-        List<String> foodList = new ArrayList<>();
-        for (int i = 0; i < foodCount; i++) {
-            foodList.add(faker.food().ingredient());
-        }
-        Collections.sort(foodList);
-        return foodList;
+        String [] foodList = new String[foodCount];
+        Arrays.setAll(foodList, p -> faker.food().ingredient());
+        return Arrays.asList(foodList);
     }
-
 }
