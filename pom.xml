@@ -15,6 +15,7 @@
         <resource.dir>src${file.separator}main${file.separator}resources</resource.dir>
         <test.resource.dir>src${file.separator}test${file.separator}resources</test.resource.dir>
         <testng.dir>${test.resource.dir}${file.separator}suites</testng.dir>
+        <report.dir>${basedir}${file.separator}reports${file.separator}${browser}</report.dir>
         <aspectj.version>1.8.10</aspectj.version>
         <DOMAIN>prod</DOMAIN>
     </properties>
@@ -119,7 +120,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.0</version>
+                    <version>3.0.0-M4</version>
                     <configuration>
                         <argLine>
                             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
@@ -127,6 +128,7 @@
                         <systemPropertyVariables>
                             <DOMAIN>${DOMAIN}</DOMAIN>
                             <test.resource.dir>${test.resource.dir}</test.resource.dir>
+                            <report.dir>${report.dir}</report.dir>
                         </systemPropertyVariables>
                     </configuration>
                     <dependencies>

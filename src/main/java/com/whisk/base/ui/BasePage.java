@@ -11,18 +11,16 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class BasePage {
-
-    final WebDriver driver = BaseTest.getDriver();
+public class BasePage extends DriverContainer{
 
     public WebElement getElement(Locator locator, Object... args) {
         By by = locator.getLocator(args);
-        return driver.findElement(by);
+        return driver().findElement(by);
     }
 
     public List<WebElement> getElements(Locator locator, Object... args) {
         By by = locator.getLocator(args);
-        return driver.findElements(by);
+        return driver().findElements(by);
     }
 
     public String getElementText(String message, Locator locator, Object... args) {
@@ -58,20 +56,29 @@ public class BasePage {
     }
 
     public void switchToNewTab() {
-        for (String winHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(winHandle);
+        for (String winHandle : driver().getWindowHandles()) {
+            driver().switchTo().window(winHandle);
         }
     }
 
     public void waitForElementVisibility(String message, Locator locator, Object... args) {
         Reporter.log(message);
         By by = locator.getLocator(args);
-        WebDriverWait wait = new WebDriverWait(BaseTest.getDriver(), Constants.ELEMENT_TIMEOUT_SIXTY_SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver(), Constants.ELEMENT_TIMEOUT_SIXTY_SECONDS);
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
     public void openPage(String url) {
         Reporter.log("Opening " + url + " url address...");
-        BaseTest.getDriver().get(url);
+        driver().get(url);
+    }
+
+    public void waitInSeconds(int seconds) {
+        try {
+            Reporter.log("Waiting '" + seconds + "' seconds timeout...");
+            Thread.sleep(seconds * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

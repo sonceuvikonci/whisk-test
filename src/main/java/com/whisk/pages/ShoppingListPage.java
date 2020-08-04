@@ -20,7 +20,6 @@ public class ShoppingListPage extends BasePage {
     private final Locator deleteItemMenuList = new Locator(LocatorTypes.XPATH, "//button[@data-testid='shopping-list-delete-menu-button']");
     private final Locator confirmDeleteButton = new Locator(LocatorTypes.XPATH, "//button[@data-testid='confirm-delete-button']");
     private final Locator shoppingListLink = new Locator(LocatorTypes.XPATH, "//div[@data-testid='shopping-lists-list-name']");
-    private final String shoppingListPath = "//div[@data-testid='shopping-lists-list-name']";
 
     public CreateListModalWindow clickCreateNewListLink() {
         waitForElementVisibility("Waiting for 'Create New List' link visibility ...", createNewListLink);
@@ -51,20 +50,22 @@ public class ShoppingListPage extends BasePage {
     }
 
     public ShoppingListPage clickShoppingList(String listName) {
-        Locator _shoppingList = new Locator(LocatorTypes.XPATH, String.format("%s[contains(text(),'%s')]", shoppingListPath,listName));
+        Locator _shoppingList = new Locator(LocatorTypes.XPATH, String.format("//div[@data-testid='shopping-lists-list-name'][contains(text(),'%s')]", listName));
         click(String.format("Clicking on %s ...", listName),
                 _shoppingList);
         return this;
     }
 
-    public ShoppingListPage clickMenuForList(String listName) {
-        Locator _shoppingListMenu = new Locator(LocatorTypes.XPATH, String.format("%s[contains(text(),'%s')]//parent::div/following-sibling::div[1]//button", shoppingListPath,listName));
+    public ShoppingListPage clickMenuForList(String listName)  {
+        Locator _shoppingListMenu = new Locator(LocatorTypes.XPATH, String.format("//div[@data-testid='shopping-lists-list-name'][contains(text(),'%s')]//parent::div/following-sibling::div[1]//button", listName));
+        waitForElementVisibility("Waiting for menu visibility...",_shoppingListMenu);
+        waitInSeconds(1);
         click(String.format("Clicking on menu for %s ...", listName), _shoppingListMenu);
         return this;
     }
 
     public ShoppingListPage clickDeleteItemMenuList() {
-        waitForElementVisibility("Waiting for 'Delete list' menu item visibility ", deleteItemMenuList);
+        waitForElementVisibility("Waiting for 'Delete list' menu item visibility... ", deleteItemMenuList);
         click("Clicking on 'Delete list' menu item ...", deleteItemMenuList);
         return this;
     }
